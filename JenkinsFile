@@ -7,14 +7,14 @@ pipeline {
                 script {
                     // Initialize Vault access
                     def secrets = [
-                        [$class: 'VaultSecret', path: 'mulesoft', secretValues: [
+                        [$class: 'VaultSecret', path: '/v1/secret/data/mulesoft', secretValues: [
                             [$class: 'VaultSecretValue', envVar: 'SECRET_KEY', vaultKey: 'key1'],
                             [$class: 'VaultSecretValue', envVar: 'ANOTHER_SECRET', vaultKey: 'key2']
                         ]]
                     ]
                     echo "WORKING"
                     // Fetch secrets from Vault
-                    withVault([vaultSecrets: secrets, vaultConfigurationId: 'your-vault-config-id']) {
+                    withVault([vaultSecrets: secrets, vaultConfigurationId: 'vault-token']) {
                         echo "Secret: ${env.SECRET_KEY}"
                         echo "Another Secret: ${env.ANOTHER_SECRET}"
                     }
