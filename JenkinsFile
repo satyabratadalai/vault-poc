@@ -11,14 +11,17 @@ pipeline {
 
                     if("${MULEENV}" == 'DEV'){
                         echo "FOR DEV"
+                        def vaultPath='secret/mulesoft-dev'
                     }
 
                     else if("${MULEENV}" == 'UAT'){
                         echo "FOR UAT"
+                        def vaultPath='secret/mulesoft-uat'
                     }
 
                     else if("${MULEENV}" == 'PROD'){
                         echo "FOR PROD"
+                        def vaultPath='secret/mulesoft-prod'
                     }
 
                     else {
@@ -27,7 +30,7 @@ pipeline {
 
                     // Initialize Vault access
                     def secrets = [
-                        [$class: 'VaultSecret', path: 'secret/mulesoft', secretValues: [
+                        [$class: 'VaultSecret', path: '${uname}', secretValues: [
                             [$class: 'VaultSecretValue', envVar: 'username', vaultKey: 'username'],
                             [$class: 'VaultSecretValue', envVar: 'password', vaultKey: 'password']
                         ]]
