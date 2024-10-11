@@ -28,7 +28,8 @@ pipeline {
                         echo "INVALID ENV"
                     }
 
-                    println("path: ${vaultPath}")
+                    
+                    echo vaultPath
                     // Initialize Vault access
                     def secrets = [
                         [$class: 'VaultSecret', path: "${vaultPath}", secretValues: [
