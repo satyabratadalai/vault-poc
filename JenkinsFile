@@ -1,17 +1,29 @@
 pipeline {
-    agent any  // This specifies that the pipeline can run on any available agent
+    agent any
+
+    environment {
+        // Define variables for Vault secrets
+        VAULT_SECRET = credentials('vault')
+    }
 
     stages {
-        stage('Checkout') {
+        stage('Fetch Secret') {
             steps {
-                // This step checks out the source code from a Git repository
-               echo "wrking"
-            }
-        }
-        stage('Build') {
-            steps {
-                // This step simply prints a string
-                echo 'Hello, this is a simple Jenkins pipeline!'
+                script {
+                    // Initialize Vault access
+                    def secrets = [
+                        [$class: 'VaultSecret', path: 'path-to-your-secret', secretValues: [
+                            [$class: 'VaultSecretValue', envVar: 'SECRET_KEY', vaultKey: 'key1'],
+                            [$class: 'VaultSecretValue', envVar: 'ANOTHER_SECRET', vaultKey: 'key2']
+                        ]]
+                    ]
+
+                    // Fetch secrets from Vault
+                    withVault([vaultSecrets: secrets]) {
+                        echo "Secret: ${env.SECRET_KEY}"
+                        echo "Another Secret: ${env.ANOTHER_SECRET}"
+                    }
+                }
             }
         }
     }
