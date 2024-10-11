@@ -5,7 +5,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 // This step checks out the source code from a Git repository
-                git url: 'https://github.com/your-username/your-repository.git'
+                git url: 'https://github.com/satyabratadalai/vault-poc.git'
             }
         }
         stage('Build') {
