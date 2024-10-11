@@ -40,7 +40,7 @@ pipeline {
                             def uname = env.username
                             def pw = env.password
                             
-                            // Print to console (remove this in production)
+                           
                             println("USERNAME: ${uname}")
                             println("PASSWORD: ${pw}")
 
