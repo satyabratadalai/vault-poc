@@ -9,14 +9,14 @@ pipeline {
                     // Fetch The Env Variables/Input Details
                     echo "Environment Selected : ${MULEENV}"
 
-                    if (${MULEENV} == 'DEV'){
+                    if ("${MULEENV}" == 'DEV'){
                         echo "FOR DEV"
                     }
-                    else if (${MULEENV} == 'UAT'){
+                    else if ("${MULEENV}" == 'UAT'){
                         echo "FOR UAT"
                     }
 
-                    else if (${MULEENV} == 'PROD'){
+                    else if ("${MULEENV}" == 'PROD'){
                         echo "FOR PROD"
                     }
 
