@@ -15,8 +15,10 @@ pipeline {
                     echo "WORKING"
                     // Fetch secrets from Vault
                     withVault([vaultSecrets: secrets, vaultConfigurationId: 'vault-token']) {
-                        echo "Secret: ${env.name}"
-                        echo "Another Secret: ${env.name1}"
+                        def secretValue = env.name
+                        def secretValue = env.name1
+                        println("Secret: ${secretValue}")
+                        println("Another Secret: ${anotherSecretValue}")
                     }
                 }
             }
