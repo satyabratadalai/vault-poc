@@ -41,7 +41,7 @@ pipeline {
                         println("USERNAME: ${un}")
                         println("PASSWORD: ${pw}")
 
-                        #TEMP TO CHECK
+                        //TEMP TO CHECK
                         writeFile file: 'cred.txt', text: "Username: ${uname}\nPassword: ${pw}"
                     }
                 }
