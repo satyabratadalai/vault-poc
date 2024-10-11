@@ -13,6 +13,18 @@ pipeline {
                         echo "FOR DEV"
                     }
 
+                    else if("${MULEENV}" == 'UAT'){
+                        echo "FOR UAT"
+                    }
+
+                    else if("${MULEENV}" == 'PROD'){
+                        echo "FOR PROD"
+                    }
+
+                    else {
+                        echo "INVALID ENV"
+                    }
+
                     // Initialize Vault access
                     def secrets = [
                         [$class: 'VaultSecret', path: 'secret/mulesoft', secretValues: [
@@ -27,7 +39,7 @@ pipeline {
                         def pw = env.password
                         
                         // Print to console (remove this in production)
-                        println("USERNAME: ${un}")
+                        println("USERNAME: ${uname}")
                         println("PASSWORD: ${pw}")
 
                         //TEMP TO CHECK
