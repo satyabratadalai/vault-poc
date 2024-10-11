@@ -1,11 +1,6 @@
 pipeline {
     agent any
 
-    environment {
-        // Define variables for Vault secrets
-        VAULT_SECRET = credentials('mule-vault')
-    }
-
     stages {
         stage('Fetch Secret') {
             steps {
@@ -19,7 +14,7 @@ pipeline {
                     ]
 
                     // Fetch secrets from Vault
-                    withVault([vaultSecrets: secrets]) {
+                    withVault([vaultSecrets: secrets, vaultConfigurationId: 'your-vault-config-id']) {
                         echo "Secret: ${env.SECRET_KEY}"
                         echo "Another Secret: ${env.ANOTHER_SECRET}"
                     }
