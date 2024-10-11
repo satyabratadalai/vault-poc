@@ -12,7 +12,7 @@ pipeline {
                 script {
                     // Initialize Vault access
                     def secrets = [
-                        [$class: 'VaultSecret', path: 'path-to-your-secret', secretValues: [
+                        [$class: 'VaultSecret', path: 'mulesoft', secretValues: [
                             [$class: 'VaultSecretValue', envVar: 'SECRET_KEY', vaultKey: 'key1'],
                             [$class: 'VaultSecretValue', envVar: 'ANOTHER_SECRET', vaultKey: 'key2']
                         ]]
