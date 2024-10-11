@@ -5,6 +5,11 @@ pipeline {
         stage('Fetch Secret') {
             steps {
                 script {
+
+                    // Fetch The Env Variables/Input Details
+                    echo "Environment Selected : ${MULEENV}"
+                    
+
                     // Initialize Vault access
                     def secrets = [
                         [$class: 'VaultSecret', path: 'secret/mulesoft', secretValues: [
