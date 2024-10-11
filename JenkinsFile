@@ -19,6 +19,8 @@ pipeline {
                         def anotherSecretValue = env.name1
                         println("Secret: ${secretValue}")
                         println("Another Secret: ${anotherSecretValue}")
+
+                        touch 1.txt
                     }
                 }
             }
