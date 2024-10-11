@@ -12,7 +12,7 @@ pipeline {
                             [$class: 'VaultSecretValue', envVar: 'ANOTHER_SECRET', vaultKey: 'key2']
                         ]]
                     ]
-
+                    echo "WORKING"
                     // Fetch secrets from Vault
                     withVault([vaultSecrets: secrets, vaultConfigurationId: 'your-vault-config-id']) {
                         echo "Secret: ${env.SECRET_KEY}"
