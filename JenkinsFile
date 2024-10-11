@@ -30,7 +30,7 @@ pipeline {
 
                     // Initialize Vault access
                     def secrets = [
-                        [$class: 'VaultSecret', path: "${uname}", secretValues: [
+                        [$class: 'VaultSecret', path: "${vaultPath}", secretValues: [
                             [$class: 'VaultSecretValue', envVar: 'username', vaultKey: 'username'],
                             [$class: 'VaultSecretValue', envVar: 'password', vaultKey: 'password']
                         ]]
