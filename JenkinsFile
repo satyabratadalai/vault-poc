@@ -11,7 +11,7 @@ pipeline {
 
                     if("${MULEENV}" == 'DEV'){
                         echo "FOR DEV"
-                        def vaultPath="secret/mulesoft-dev"
+                        def vaultPath = "secret/mulesoft-dev"
                     }
 
                     else if("${MULEENV}" == 'UAT'){
@@ -21,7 +21,7 @@ pipeline {
 
                     else if("${MULEENV}" == 'PROD'){
                         echo "FOR PROD"
-                        def vaultPath="secret/mulesoft-prod"
+                        def vaultPath = "secret/mulesoft-prod"
                     }
 
                     else {
