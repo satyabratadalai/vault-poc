@@ -14,7 +14,7 @@ pipeline {
                     ]
                     echo "WORKING"
                     // Fetch secrets from Vault
-                    withVault([vaultSecrets: secrets, vaultConfigurationId: 'vault-token']) {
+                    withVault([vaultSecrets: secrets, vaultConfigurationId: 'your-vault-config-id']) {
                         echo "Secret: ${env.SECRET_KEY}"
                         echo "Another Secret: ${env.ANOTHER_SECRET}"
                     }
