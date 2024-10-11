@@ -20,7 +20,6 @@ pipeline {
                         println("Secret: ${secretValue}")
                         println("Another Secret: ${anotherSecretValue}")
 
-                        touch 1.txt
                     }
                 }
             }
