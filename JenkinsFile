@@ -8,17 +8,16 @@ pipeline {
                     // Initialize Vault access
                     def secrets = [
                         [$class: 'VaultSecret', path: 'secret/mulesoft', secretValues: [
-                            [$class: 'VaultSecretValue', envVar: 'name', vaultKey: 'username'],
-                            [$class: 'VaultSecretValue', envVar: 'name1', vaultKey: 'password']
+                            [$class: 'VaultSecretValue', envVar: 'MY_SECRET_USERNAME', vaultKey: 'username'],
+                            [$class: 'VaultSecretValue', envVar: 'MY_SECRET_PASSWORD', vaultKey: 'password']
                         ]]
                     ]
                     echo "WORKING"
                     // Fetch secrets from Vault
                     withVault([vaultSecrets: secrets, vaultConfigurationId: 'vault-token']) {
-                        def secretValue = env.name
-                        def anotherSecretValue = env.name1
-                        println("Secret: ${secretValue}")
-                        println("Another Secret: ${anotherSecretValue}")
+                        // Directly print the environment variables
+                        println("Username: " + System.getenv('MY_SECRET_USERNAME'))
+                        println("Password: " + System.getenv('MY_SECRET_PASSWORD'))
                     }
                 }
             }
