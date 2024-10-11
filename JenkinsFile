@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         // Define variables for Vault secrets
-        VAULT_SECRET = credentials('vault')
+        VAULT_SECRET = credentials('mule-vault')
     }
 
     stages {
