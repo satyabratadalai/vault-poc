@@ -13,23 +13,22 @@ pipeline {
                     // Initialize Vault access
                     def secrets = [
                         [$class: 'VaultSecret', path: 'secret/mulesoft', secretValues: [
-                            [$class: 'VaultSecretValue', envVar: 'name', vaultKey: 'username'],
-                            [$class: 'VaultSecretValue', envVar: 'name1', vaultKey: 'password']
+                            [$class: 'VaultSecretValue', envVar: 'username', vaultKey: 'username'],
+                            [$class: 'VaultSecretValue', envVar: 'password', vaultKey: 'password']
                         ]]
                     ]
                     echo "WORKING"
                     // Fetch secrets from Vault
                     withVault([vaultSecrets: secrets, vaultConfigurationId: 'vault-token']) {
-                        def secretValue = env.name
-                        def anotherSecretValue = env.name1
+                        def uname = env.username
+                        def pw = env.password
                         
                         // Print to console (remove this in production)
-                        println("Secret: ${secretValue}")
-                        println("Another Secret: ${anotherSecretValue}")
+                        println("USERNAME: ${un}")
+                        println("PASSWORD: ${pw}")
 
-                        // Create a new file 'cred.txt' and write the secrets to it
-                        // Note: Be cautious with this approach, especially in a shared or production environment
-                        writeFile file: 'cred.txt', text: "Username: ${secretValue}\nPassword: ${anotherSecretValue}"
+                        #TEMP TO CHECK
+                        writeFile file: 'cred.txt', text: "Username: ${uname}\nPassword: ${pw}"
                     }
                 }
             }
