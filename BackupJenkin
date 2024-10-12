@@ -1,1 +1,58 @@
 
+pipeline {
+    agent any
+
+    stages {
+        stage('Fetch Secret') {
+            steps {
+                script {
+                    // Declare vaultPath outside the if-else structure to ensure it has a broader scope
+                    def vaultPath = ''  // Initialize with a default empty string or sensible default
+
+                    // Fetch The Env Variables/Input Details
+                    echo "Environment Selected : ${MULEENV}"
+
+                    if ("${MULEENV}" == 'DEV') {
+                        echo "FOR DEV"
+                        vaultPath = "secret/mulesoft-dev"
+                    } else if ("${MULEENV}" == 'UAT') {
+                        echo "FOR UAT"
+                        vaultPath = "secret/mulesoft-uat"
+                    } else if ("${MULEENV}" == 'PROD') {
+                        echo "FOR PROD"
+                        vaultPath = "secret/mulesoft-prod"
+                    } else {
+                        echo "INVALID ENV"
+                    }
+
+                    // Check if vaultPath was set
+                    if (vaultPath) {
+                        echo "Using Vault Path: ${vaultPath}"
+                        // Initialize Vault access
+                        def secrets = [
+                            [$class: 'VaultSecret', path: vaultPath, secretValues: [
+                                [$class: 'VaultSecretValue', envVar: 'username', vaultKey: 'username'],
+                                [$class: 'VaultSecretValue', envVar: 'password', vaultKey: 'password']
+                            ]]
+                        ]
+                        echo "WORKING"
+                        // Fetch secrets from Vault
+                        withVault([vaultSecrets: secrets, vaultConfigurationId: 'vault-token']) {
+                            def uname = env.username
+                            def pw = env.password
+                            
+                           
+                            println("USERNAME: ${uname}")
+                            println("PASSWORD: ${pw}")
+
+                            // TEMP TO CHECK
+                            writeFile file: 'cred.txt', text: "Username: ${uname}\nPassword: ${pw}"
+                        }
+                    } else {
+                        echo "Vault path not set due to invalid environment"
+                    }
+                }
+            }
+        }
+    }
+}
